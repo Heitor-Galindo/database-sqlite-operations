@@ -1,4 +1,6 @@
-""" Create SQLite database for products """
+""" Create SQLite table for products with
+ id,item, grandeza, quantidade, preco_unitario,
+ preco_total, data, hora, estabelecimento, cnpj and endereco."""
 
 from database_connection import DatabaseOperation
 

@@ -1,4 +1,5 @@
-""" Create SQLite database for nfce links """
+""" Create SQLite table for nfce links
+ with id and url, all url will be unique.  """
 
 from database_connection import DatabaseOperation
 

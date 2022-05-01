@@ -1,4 +1,4 @@
-""" Create SQLite database for nfce links """
+""" Call a method to add a new url to nfce url table """
 
 from database_connection import DatabaseOperation
 
@@ -8,4 +8,3 @@ URL = ('http://www.fazenda.pr.gov.br/nfce/qrcode?p=4122030147286100072'
 with DatabaseOperation('./database_folder/nfce_url.db') as db:
     db.db_execute(""" INSERT INTO nfce_url (url)
                       VALUES (?); """, (URL, ))
-    print("New NFCE-URL added to table!")

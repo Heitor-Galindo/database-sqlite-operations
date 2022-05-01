@@ -81,4 +81,4 @@ class DatabaseOperation:
          next row of a query result set, returning a single sequence,
          or None when no more data is available. """
         self.db_cursor.execute(sql, params or ())
-        return self.db_fetchall()
+        return self.db_fetchone()

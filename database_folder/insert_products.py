@@ -1,17 +1,17 @@
-""" Create SQLite database for products """
+""" Call a method to add new products to products table """
 
 from database_connection import DatabaseOperation
 
-nome_item = 12
-quantidade_grandeza = 12
-quantidade_item = 12
-preco_unidade = 12
-preco_pago = 12
-data = 12
-hora = 12
-nome_mercado = 12
-cnpj_mercado = 12
-endereco_mercado = 12
+nome_item = []
+quantidade_grandeza = []
+quantidade_item = []
+preco_unidade = []
+preco_pago = []
+data = []
+hora = []
+nome_mercado = []
+cnpj_mercado = []
+endereco_mercado = []
 
 PRODUCT_INFO = (nome_item, quantidade_grandeza,
                 quantidade_item, preco_unidade,
