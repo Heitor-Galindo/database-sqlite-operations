@@ -9,11 +9,11 @@ def select():
 
     while int(next_row) <= int(max_row):
 
-        print(f"max row: {max_row}")
-        print(f"next row: {next_row}")
+        print(f"max row: {max_row}", type(max_row))
+        print(f"next row: {next_row}", type(next_row))
 
         url_link = get_url(str(next_row)[0])
-        print(f"actual row: {url_link[1]}")
+        print(f"actual row: {url_link[1]}", type(url_link), "\n")
         next_row = 1 + int(next_row)
 
 select()

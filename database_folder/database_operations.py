@@ -18,7 +18,7 @@ class DatabaseOperation:
     def __init__(self, database_file):
         self._conn = sqlite3.connect(database_file)
         self._cursor = self._conn.cursor()
-        print(f"database {database_file} connected!")
+        # print(f"database {database_file} connected!")
 
     # context managers / magic methods
     def __enter__(self):
@@ -56,7 +56,7 @@ class DatabaseOperation:
         if db_commit:
             self.db_commit()
         self.db_conn.close()
-        print("database conection closed!")
+        # print("database conection closed!")
 
     # methods with cursor
     def db_execute(self, sql, params=None):
