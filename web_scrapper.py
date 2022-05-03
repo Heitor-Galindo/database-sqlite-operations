@@ -4,7 +4,7 @@ import re
 from bs4 import BeautifulSoup
 import requests
 
-from database_folder.select_nfce_url import get_url
+from database_folder.select_nfce_url import get_max, get_url
 from database_folder.insert_products import insert_item
 
 nfce_db_file = './database_folder/database/nfce_url.db'
@@ -25,46 +25,58 @@ def web_scraper ():
 
     """ Web-Scrapper funtion """
 
-    url = get_url()
+    max_row = get_max()
+    next_row = get_url()[1]
 
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/12.0'
-        }
+    while int(next_row) <= int(max_row):
 
-    page = requests.get(url, headers=headers).content
-    soup = BeautifulSoup(page, "html.parser")
+        print(f"max row: {max_row}")
+        print(f"next row: {next_row}")
 
-    for item in soup.find_all("tr"):
-        linha = item.findChildren("span")
+        url_link = get_url(str(next_row)[0])
+        print(f"actual row: {url_link[1]}")
+        next_row = 1 + int(next_row)
 
-        nome_item.append(re.sub("(\sKg.*$)","",(linha[0].text)))
-        quantidade_item.append(re.sub("\s+","",(linha[2].text)).split(":")[1])
-        quantidade_grandeza.append(re.sub("\s+","",(linha[3].text)).split(":")[1])
-        preco_unidade.append(re.sub("\s+","",(linha[4].text)).split(":")[1])
-        preco_pago.append(linha[5].text)
+        url = url_link[0]
 
-        dados_cadastrais = soup.find(class_="txtCenter").find_all(class_="text")
-        nome_mercado.append(soup.find("div", class_="txtTopo").text)
-        cnpj_mercado.append(re.sub("CNPJ\:|\s*","",(dados_cadastrais[0].text)))
-        endereco_mercado.append(re.sub("\n\t*","",(dados_cadastrais[1].text)))
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/12.0'
+            }
 
-        emissao = (re.sub("[A-Z]+|[a-z]+|\-|\n","",(soup.find("ul").find_all("strong"))[3].next_sibling)).split(" ")
-        data.append(emissao[0])
-        hora.append(emissao[1])
+        page = requests.get(url, headers=headers).content
+        soup = BeautifulSoup(page, "html.parser")
 
-    lenght = len(nome_item)
-    for i in range(lenght):
-        ITEM = (nome_item[i],
-                quantidade_grandeza[i],
-                quantidade_item[i],
-                preco_unidade[i],
-                preco_pago[i],
-                data[i],
-                hora[i],
-                nome_mercado[i],
-                cnpj_mercado[i],
-                endereco_mercado[i])
+        for item in soup.find_all("tr"):
+            linha = item.findChildren("span")
 
-        insert_item(ITEM = ITEM)
+            nome_item.append(re.sub(r"(\sKg.*$)","",(linha[0].text)))
+            quantidade_item.append(re.sub(r"\s+","",(linha[2].text)).split(":")[1])
+            quantidade_grandeza.append(re.sub(r"\s+","",(linha[3].text)).split(":")[1])
+            preco_unidade.append(re.sub(r"\s+","",(linha[4].text)).split(":")[1])
+            preco_pago.append(linha[5].text)
+
+            dados_cadastrais = soup.find(class_="txtCenter").find_all(class_="text")
+            nome_mercado.append(soup.find("div", class_="txtTopo").text)
+            cnpj_mercado.append(re.sub(r"CNPJ\:|\s*","",(dados_cadastrais[0].text)))
+            endereco_mercado.append(re.sub("\n\t*","",(dados_cadastrais[1].text)))
+
+            emissao = (re.sub(r"[A-Z]+|[a-z]+|\-|\n","",(soup.find("ul").find_all("strong"))[3].next_sibling)).split(" ")
+            data.append(emissao[0])
+            hora.append(emissao[1])
+
+        lenght = len(nome_item)
+        for i in range(lenght):
+            ITEM = (nome_item[i],
+                    quantidade_grandeza[i],
+                    quantidade_item[i],
+                    preco_unidade[i],
+                    preco_pago[i],
+                    data[i],
+                    hora[i],
+                    nome_mercado[i],
+                    cnpj_mercado[i],
+                    endereco_mercado[i])
+
+            insert_item(ITEM = ITEM)
 
 web_scraper()
