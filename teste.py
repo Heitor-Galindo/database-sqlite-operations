@@ -12,8 +12,8 @@ def select():
         print(f"max row: {max_row}", type(max_row))
         print(f"next row: {next_row}", type(next_row))
 
-        url_link = get_url(str(next_row)[0])
-        print(f"actual row: {url_link[1]}", type(url_link), "\n")
+        actual_row = get_url(str(next_row)[0])
+        print(f"actual row: {actual_row[1]}", type(actual_row), "\n")
         next_row = 1 + int(next_row)
 
 select()
