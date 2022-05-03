@@ -1,28 +1,27 @@
 """ Call a method to add new products to products table """
 
-from database_connection import DatabaseOperation
+from os.path import exists as file_exists
+from database_folder.database_operations import DatabaseOperation
+from database_folder.create_table_products import create_products_table
 
-nome_item = []
-quantidade_grandeza = []
-quantidade_item = []
-preco_unidade = []
-preco_pago = []
-data = []
-hora = []
-nome_mercado = []
-cnpj_mercado = []
-endereco_mercado = []
+products_db_file = './database_folder/database/products.db'
 
-PRODUCT_INFO = (nome_item, quantidade_grandeza,
-                quantidade_item, preco_unidade,
-                preco_pago, data,
-                hora, nome_mercado,
-                cnpj_mercado, endereco_mercado)
+def insert_item(ITEM):
+    """ Call a method to add new products to products table """
 
-with DatabaseOperation('./database_folder/products.db') as db:
-    db.db_executemany(""" INSERT INTO produtos (item, grandeza,
-                            quantidade, preco_unitario,
-                            preco_total, data,
-                            hora, estabelecimento,
-                            cnpj, endereco)
-                            VALUES (?,?,?,?,?,?,?,?,?,?); """, [PRODUCT_INFO])
+    if not file_exists(products_db_file):
+        create_products_table()
+
+    with DatabaseOperation(products_db_file) as products_table:
+        products_table.db_executemany("""INSERT INTO produtos
+                                        (item,
+                                        grandeza,
+                                        quantidade,
+                                        preco_unitario,
+                                        preco_total,
+                                        data,
+                                        hora,
+                                        estabelecimento,
+                                        cnpj,
+                                        endereco)
+                                        VALUES (?,?,?,?,?,?,?,?,?,?);""", [ITEM])

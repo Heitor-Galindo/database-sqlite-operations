@@ -1,10 +1,27 @@
 """ Call a method to add a new url to nfce url table """
 
-from database_connection import DatabaseOperation
+from os.path import exists as file_exists
+from sqlite3 import Error
+from database_folder.database_operations import DatabaseOperation
+from database_folder.create_table_nfce_url import create_nfce_table
 
-URL = ('http://www.fazenda.pr.gov.br/nfce/qrcode?p=4122030147286100072'
-      '0650140002039781843966740|2|1|1|DE2BE4479B6E8B0E62BB1BA887E6CE3834B103C5')
+nfce_db_file = './database_folder/database/nfce_url.db'
+QR_CODE_URL = './database_folder/database/QR_CODE_URL.txt'
 
-with DatabaseOperation('./database_folder/nfce_url.db') as db:
-    db.db_execute(""" INSERT INTO nfce_url (url)
-                      VALUES (?); """, (URL, ))
+def nfce_database():
+    """ Call a method to add a new url to nfce url table """
+    with open(QR_CODE_URL, 'r', encoding='utf-8') as url_file:
+
+        if not file_exists(nfce_db_file):
+            create_nfce_table()
+
+        lines = url_file.readlines()
+        length = len(lines)
+
+        try:
+            with DatabaseOperation(nfce_db_file) as db:
+                for i in range(length):
+                    line = lines[i].strip()
+                    db.db_execute("""INSERT INTO nfce_url (url) VALUES (?); """, (line, ))
+        except Error as e:
+            print(e)
