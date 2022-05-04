@@ -14,7 +14,7 @@ def get_max():
 def get_url(ID="1"):
     """ Select URL from database """
     with DatabaseOperation(nfce_db_file) as nfce_url:
-        links = nfce_url.db_query(""" SELECT * FROM nfce_url WHERE id = ? """, ID)
+        links = nfce_url.db_query(""" SELECT * FROM nfce_url WHERE id = ? """, [ID])
         row = str(links)[1:-1].split(',', maxsplit=1)
         ID = row[0]
         url = re.sub(r"\s|'","",row[1])

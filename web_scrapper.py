@@ -24,20 +24,13 @@ hora = []
 def web_scraper ():
 
     """ Web-Scrapper funtion """
-
+    
     max_row = get_max()
-    next_row = get_url()[1]
+    current_row = get_url()
+    for row in range(int(current_row[1]), max_row):
+        link = get_url(str(row))
 
-    while int(next_row) <= int(max_row):
-
-        print(f"max row: {max_row}")
-        print(f"next row: {next_row}")
-
-        url_link = get_url(str(next_row)[0])
-        print(f"actual row: {url_link[1]}")
-        next_row = 1 + int(next_row)
-
-        url = url_link[0]
+        url = link[0]
 
         headers = {
             'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/12.0'
