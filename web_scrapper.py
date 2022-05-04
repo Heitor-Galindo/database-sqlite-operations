@@ -24,7 +24,7 @@ hora = []
 def web_scraper ():
 
     """ Web-Scrapper funtion """
-    
+
     max_row = get_max()
     current_row = get_url()
     for row in range(int(current_row[1]), max_row):
@@ -57,19 +57,19 @@ def web_scraper ():
             data.append(emissao[0])
             hora.append(emissao[1])
 
-        lenght = len(nome_item)
-        for i in range(lenght):
-            ITEM = (nome_item[i],
-                    quantidade_grandeza[i],
-                    quantidade_item[i],
-                    preco_unidade[i],
-                    preco_pago[i],
-                    data[i],
-                    hora[i],
-                    nome_mercado[i],
-                    cnpj_mercado[i],
-                    endereco_mercado[i])
+    lenght = len(nome_item)
+    for i in range(lenght):
+        ITEM = (nome_item[i],
+                quantidade_grandeza[i],
+                quantidade_item[i],
+                preco_unidade[i],
+                preco_pago[i],
+                data[i],
+                hora[i],
+                nome_mercado[i],
+                cnpj_mercado[i],
+                endereco_mercado[i])
 
-            insert_item(ITEM = ITEM)
+        insert_item(ITEM = ITEM)
 
 web_scraper()
