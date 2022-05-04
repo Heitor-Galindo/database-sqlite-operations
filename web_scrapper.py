@@ -4,11 +4,11 @@ import re
 from bs4 import BeautifulSoup
 import requests
 
-from database_folder.select_nfce_url import get_max, get_url
-from database_folder.insert_products import insert_item
+from database_operations.select_nfce_url import get_max, get_url
+from database_operations.insert_products import insert_item
 
-nfce_db_file = './database_folder/database/nfce_url.db'
-products_db_file = './database_folder/database/products.db'
+nfce_db_file = './database_operations/database/nfce_url.db'
+products_db_file = './database_operations/database/products.db'
 
 nome_item = []
 quantidade_item = []

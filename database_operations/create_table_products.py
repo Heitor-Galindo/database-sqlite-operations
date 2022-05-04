@@ -2,9 +2,9 @@
  id,item, grandeza, quantidade, preco_unitario,
  preco_total, data, hora, estabelecimento, cnpj and endereco."""
 
-from database_folder.database_operations import DatabaseOperation
+from database_operations.database_operations import DatabaseOperation
 
-products_db_file = './database_folder/database/products.db'
+products_db_file = './database_operations/database/products.db'
 
 def create_products_table():
     """ Create SQLite table for products with

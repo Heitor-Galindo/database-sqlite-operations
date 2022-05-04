@@ -1,10 +1,10 @@
 """ Call a method to add new products to products table """
 
 from os.path import exists as file_exists
-from database_folder.database_operations import DatabaseOperation
-from database_folder.create_table_products import create_products_table
+from database_operations.database_operations import DatabaseOperation
+from database_operations.create_table_products import create_products_table
 
-products_db_file = './database_folder/database/products.db'
+products_db_file = './database_operations/database/products.db'
 
 def insert_item(ITEM):
     """ Call a method to add new products to products table """

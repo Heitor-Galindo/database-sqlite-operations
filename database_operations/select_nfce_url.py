@@ -1,9 +1,9 @@
 """ Select URL from database """
 
 import re
-from database_folder.database_operations import DatabaseOperation
+from database_operations.database_operations import DatabaseOperation
 
-nfce_db_file = './database_folder/database/nfce_url.db'
+nfce_db_file = './database_operations/database/nfce_url.db'
 
 def get_max():
     """ Get last row id in table """

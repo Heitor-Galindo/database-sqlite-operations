@@ -2,11 +2,11 @@
 
 from os.path import exists as file_exists
 from sqlite3 import Error
-from database_folder.database_operations import DatabaseOperation
-from database_folder.create_table_nfce_url import create_nfce_table
+from database_operations.database_operations import DatabaseOperation
+from database_operations.create_table_nfce_url import create_nfce_table
 
-nfce_db_file = './database_folder/database/nfce_url.db'
-QR_CODE_URL = './database_folder/database/QR_CODE_URL.txt'
+nfce_db_file = './database_operations/database/nfce_url.db'
+QR_CODE_URL = './database_operations/database/QR_CODE_URL.txt'
 
 def nfce_database():
     """ Call a method to add a new url to nfce url table """
